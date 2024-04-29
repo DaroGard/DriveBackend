@@ -59,54 +59,43 @@ public class UsuariosServiceImp implements UsuariosService {
     @Override
     public String actualizarUsuario(int codigoUsuario, Usuarios usuarioActualizado) {
 
-        if (this.usuariosRepository.existsById(codigoUsuario)) {
-            Usuarios usuario = usuariosRepository.findById(codigoUsuario).get();
+        Usuarios usuario = usuariosRepository.findById(codigoUsuario)
+                .orElseThrow(() -> new RuntimeException("No se encontró el usuario."));
 
-            if (usuarioActualizado.getNombre() != null) {
-                usuario.setNombre(usuarioActualizado.getNombre());
-            }
-            if (usuarioActualizado.getCorreo() != null) {
-                usuario.setCorreo(usuarioActualizado.getCorreo());
-            }
-            if (usuarioActualizado.getClave() != null) {
-                usuario.setClave(usuarioActualizado.getClave());
-            }
-            if (usuarioActualizado.getCorreoAdicional() != null) {
-                usuario.setCorreoAdicional(usuarioActualizado.getCorreoAdicional());
-            }
-            if (usuarioActualizado.getDireccion() != null) {
-                usuario.setDireccion(usuarioActualizado.getDireccion());
-            }
-            if (usuarioActualizado.getFechaNacimiento() != null) {
-                usuario.setFechaNacimiento(usuarioActualizado.getFechaNacimiento());
-            }
-            if (usuarioActualizado.getDatos_privacidad() != null) {
-                usuario.setDatos_privacidad(usuarioActualizado.getDatos_privacidad());
-            }
-            if (usuarioActualizado.getFormacion() != null) {
-                usuario.setFormacion(usuarioActualizado.getFormacion());
-            }
-            if (usuarioActualizado.getGenero() != null) {
-                usuario.setGenero(usuarioActualizado.getGenero());
-            }
-            if (usuarioActualizado.getPreferencia() != null) {
-                usuario.setPreferencia(usuarioActualizado.getPreferencia());
-            }
-            if (usuarioActualizado.getTarjeta() != null) {
-                usuario.setTarjeta(usuarioActualizado.getTarjeta());
-            }
-            if (usuarioActualizado.getTelefono() != null) {
-                usuario.setTelefono(usuarioActualizado.getTelefono());
-            }
-            if (usuarioActualizado.getTrabajo() != null) {
-                usuario.setTrabajo(usuarioActualizado.getTrabajo());
-            }
-
-            this.usuariosRepository.save(usuario);
-
-            return "Datos actualizados";
+        if (usuarioActualizado.getNombre() != null) {
+            usuario.setNombre(usuarioActualizado.getNombre());
+        }
+        if (usuarioActualizado.getApellido() != null) {
+            usuario.setApellido(usuarioActualizado.getApellido());
+        }
+        if (usuarioActualizado.getCorreo() != null) {
+            usuario.setCorreo(usuarioActualizado.getCorreo());
+        }
+        if (usuarioActualizado.getClave() != null) {
+            usuario.setClave(usuarioActualizado.getClave());
+        }
+        if (usuarioActualizado.getCorreoAdicional() != null) {
+            usuario.setCorreoAdicional(usuarioActualizado.getCorreoAdicional());
+        }
+        if (usuarioActualizado.getFechaNacimiento() != null) {
+            usuario.setFechaNacimiento(usuarioActualizado.getFechaNacimiento());
+        }
+        if (usuarioActualizado.getFormacion() != null) {
+            usuario.setFormacion(usuarioActualizado.getFormacion());
+        }
+        if (usuarioActualizado.getGenero() != null) {
+            usuario.setGenero(usuarioActualizado.getGenero());
+        }
+        if (usuarioActualizado.getTelefono() != null) {
+            usuario.setTelefono(usuarioActualizado.getTelefono());
+        }
+        if (usuarioActualizado.getTrabajo() != null) {
+            usuario.setTrabajo(usuarioActualizado.getTrabajo());
         }
 
-        return "El usuario no existe";
+        this.usuariosRepository.save(usuario);
+
+        return "Datos actualizados";
+
     }
 }

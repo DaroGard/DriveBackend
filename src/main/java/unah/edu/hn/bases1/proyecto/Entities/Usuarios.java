@@ -53,6 +53,8 @@ public class Usuarios {
 
     private String nombre;
 
+    private String apellido;
+
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
