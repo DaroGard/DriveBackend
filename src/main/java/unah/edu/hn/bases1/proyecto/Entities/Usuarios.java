@@ -1,6 +1,5 @@
 package unah.edu.hn.bases1.proyecto.Entities;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class Usuarios {
     private Direcciones direccion;
 
     @Column(name = "fotoperfil")
-    private Blob fotoPerfil;
+    private String fotoPerfil;
 
     private String nombre;
 
