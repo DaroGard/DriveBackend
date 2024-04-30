@@ -33,9 +33,9 @@ INSERT INTO tbl_tipos_lugares (tipo_lugar) VALUES ('pais');
 INSERT INTO tbl_tipos_lugares (tipo_lugar) VALUES ('estado');
 
 -- Inserts en tbl_ofertas
-INSERT INTO tbl_ofertas (descuento, fecha_vencimiento, estado) VALUES (10.50, '2024-05-15', 'activo');
-INSERT INTO tbl_ofertas (descuento, fecha_vencimiento, estado) VALUES (20.00, '2024-06-30', 'inactivo');
-INSERT INTO tbl_ofertas (descuento, fecha_vencimiento, estado) VALUES (15.75, '2024-07-10', 'activo');
+INSERT INTO tbl_ofertas (descuento, fecha_vencimiento, estado) VALUES (10.50, TO_DATE('15-05-2024', 'DD-MM-YYYY'), 'activo');
+INSERT INTO tbl_ofertas (descuento, fecha_vencimiento, estado) VALUES (20.00, TO_DATE('30-06-2024', 'DD-MM-YYYY'), 'inactivo');
+INSERT INTO tbl_ofertas (descuento, fecha_vencimiento, estado) VALUES (15.75, TO_DATE('10-07-2024', 'DD-MM-YYYY'), 'activo');
 
 -- Inserts en tbl_preferencias
 INSERT INTO tbl_preferencias (preferencia) VALUES ('Publico');
@@ -52,41 +52,63 @@ INSERT INTO tbl_planes (id_oferta, nombre_plan, almacenamiento, precio, descripc
 INSERT INTO tbl_planes (id_oferta, nombre_plan, almacenamiento, precio, descripcion) VALUES (2, 'Plan Estándar', 50, 9.99, 'Plan con almacenamiento estándar');
 INSERT INTO tbl_planes (id_oferta, nombre_plan, almacenamiento, precio, descripcion) VALUES (3, 'Plan Premium', 100, 14.99, 'Plan con almacenamiento premium');
 
-
 -- Inserts en tbl_lugares
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 1, 'Ciudad de México');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (1, 2, 'Cuauhtémoc');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (1, 2, 'Miguel Hidalgo');
 INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 3, 'Estados Unidos');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (5, 4, 'California');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (5, 4, 'Nueva York');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 1, 'Madrid');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (7, 2, 'Centro');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (7, 2, 'Salamanca');
 INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 3, 'Reino Unido');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (10, 4, 'Inglaterra');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (10, 4, 'Escocia');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 1, 'Tokio');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (13, 2, 'Shinjuku');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (13, 2, 'Shibuya');
 INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 3, 'Costa Rica');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (17, 4, 'San José');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (17, 4, 'Heredia');
 INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 3, 'Guatemala');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (21, 4, 'Guatemala');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (21, 4, 'Quetzaltenango');
 INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 3, 'El Salvador');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (24, 4, 'San Salvador');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (24, 4, 'Santa Ana');
 INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 3, 'Honduras');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (27, 4, 'Tegucigalpa');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (27, 4, 'San Pedro Sula');
 INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 3, 'Nicaragua');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (31, 4, 'Managua');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (31, 4, 'León');
 INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (NULL, 3, 'Belice');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (35, 4, 'Belmopan');
-INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES (35, 4, 'San Ignacio');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Estados Unidos' AND id_tipo_lugar = 3), 1, 'Nueva York');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Estados Unidos' AND id_tipo_lugar = 3), 1, 'Los Ángeles');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Estados Unidos' AND id_tipo_lugar = 3), 1, 'Chicago');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Reino Unido' AND id_tipo_lugar = 3), 1, 'Londres');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Reino Unido' AND id_tipo_lugar = 3), 1, 'Manchester');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Reino Unido' AND id_tipo_lugar = 3), 1, 'Edimburgo');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Costa Rica' AND id_tipo_lugar = 3), 1, 'San José');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Costa Rica' AND id_tipo_lugar = 3), 1, 'Heredia');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Costa Rica' AND id_tipo_lugar = 3), 1, 'Alajuela');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Guatemala' AND id_tipo_lugar = 3), 1, 'Ciudad de Guatemala');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Guatemala' AND id_tipo_lugar = 3), 1, 'Quetzaltenango');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Guatemala' AND id_tipo_lugar = 3), 1, 'Escuintla');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'El Salvador' AND id_tipo_lugar = 3), 1, 'San Salvador');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'El Salvador' AND id_tipo_lugar = 3), 1, 'Santa Ana');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'El Salvador' AND id_tipo_lugar = 3), 1, 'San Miguel');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Honduras' AND id_tipo_lugar = 3), 1, 'Tegucigalpa');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Honduras' AND id_tipo_lugar = 3), 1, 'San Pedro Sula');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Honduras' AND id_tipo_lugar = 3), 1, 'La Ceiba');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Nicaragua' AND id_tipo_lugar = 3), 1, 'Managua');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Nicaragua' AND id_tipo_lugar = 3), 1, 'León');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Nicaragua' AND id_tipo_lugar = 3), 1, 'Granada');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Belice' AND id_tipo_lugar = 3), 1, 'Belmopan');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Belice' AND id_tipo_lugar = 3), 1, 'San Ignacio');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Belice' AND id_tipo_lugar = 3), 1, 'Dangriga');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Estados Unidos' AND id_tipo_lugar = 3), 4, 'California');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Estados Unidos' AND id_tipo_lugar = 3), 4, 'Nueva York');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Estados Unidos' AND id_tipo_lugar = 3), 4, 'Texas');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Reino Unido' AND id_tipo_lugar = 3), 4, 'Inglaterra');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Reino Unido' AND id_tipo_lugar = 3), 4, 'Escocia');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Reino Unido' AND id_tipo_lugar = 3), 4, 'Gales');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Costa Rica' AND id_tipo_lugar = 3), 4, 'San José');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Costa Rica' AND id_tipo_lugar = 3), 4, 'Alajuela');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Costa Rica' AND id_tipo_lugar = 3), 4, 'Guanacaste');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Guatemala' AND id_tipo_lugar = 3), 4, 'Guatemala');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Guatemala' AND id_tipo_lugar = 3), 4, 'Quetzaltenango');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Guatemala' AND id_tipo_lugar = 3), 4, 'Peten');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'El Salvador' AND id_tipo_lugar = 3), 2, 'San Salvador');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'El Salvador' AND id_tipo_lugar = 3), 2, 'Santa Ana');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'El Salvador' AND id_tipo_lugar = 3), 2, 'La Libertad');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Honduras' AND id_tipo_lugar = 3), 2, 'Francisco Morazán');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Honduras' AND id_tipo_lugar = 3), 2, 'Cortés');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Honduras' AND id_tipo_lugar = 3), 4, 'Atlántida');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Nicaragua' AND id_tipo_lugar = 3), 4, 'Managua');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Nicaragua' AND id_tipo_lugar = 3), 4, 'León');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Nicaragua' AND id_tipo_lugar = 3), 4, 'Chinandega');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Belice' AND id_tipo_lugar = 3), 4, 'Belice');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Belice' AND id_tipo_lugar = 3), 4, 'Cayo');
+INSERT INTO tbl_lugares (id_lugar_padre, id_tipo_lugar, nombre_lugar) VALUES ((SELECT id_lugar FROM tbl_lugares WHERE nombre_lugar = 'Belice' AND id_tipo_lugar = 3), 4, 'Orange Walk');
 
 -- Inserts en tbl_etiquetas
 INSERT INTO tbl_etiquetas (nombre_etiqueta, color) VALUES ('Trabajo', 'Azul');
