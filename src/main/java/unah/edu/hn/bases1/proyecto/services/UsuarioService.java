@@ -1,20 +1,21 @@
 package unah.edu.hn.bases1.proyecto.services;
 
-import java.util.List;
-
 import unah.edu.hn.bases1.proyecto.Entities.Usuario;
-import unah.edu.hn.bases1.proyecto.dtos.Login;
 
 public interface UsuarioService {
 
-    public Usuario crearUsuario(Usuario usuario);
+    public Iterable<Usuario> obtenerTodosLosUsuarios();
 
-    public Usuario obtenerUsuario(int Usuario);
+    public Usuario obtenerUsuarioPorId(Integer id);
 
-    public Usuario actualizarUsuario(Usuario Usuario, int id);
+    public Usuario guardarUsuario(Usuario usuario);
 
-    public Usuario loginUsuario(Login usuario);
+    public void eliminarUsuario(Integer id);
 
-    public List<Usuario> obtenertodos();
+    public boolean existePorCorreo(String correo);
+
+    public Usuario encontrarPorCorreoYContrasena(String correo, String contrasena);
+
+    public Usuario modificarUsuario(Integer id, Usuario usuario);
 
 }
