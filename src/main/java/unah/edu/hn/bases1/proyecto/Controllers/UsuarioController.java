@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import unah.edu.hn.bases1.proyecto.Entities.Usuario;
-import unah.edu.hn.bases1.proyecto.services.UsuarioService;
+import unah.edu.hn.bases1.proyecto.services.imp.UsuarioServiceImp;
 
 @RestController
 @RequestMapping("/drive/usuarios")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioServiceImp usuarioServiceImpl;
 
     @GetMapping("/todos")
     public ResponseEntity<Iterable<Usuario>> obtenerTodosLosUsuarios() {
-        Iterable<Usuario> usuarios = usuarioService.obtenerTodosLosUsuarios();
+        Iterable<Usuario> usuarios = usuarioServiceImpl.obtenerTodosLosUsuarios();
         return ResponseEntity.ok(usuarios);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable("id") Integer id) {
-        Usuario usuario = usuarioService.obtenerUsuarioPorId(id);
+        Usuario usuario = usuarioServiceImpl.obtenerUsuarioPorId(id);
         if (usuario != null) {
             return ResponseEntity.ok(usuario);
         } else {
@@ -42,23 +42,23 @@ public class UsuarioController {
 
     @PostMapping("/crear")
     public ResponseEntity<?> guardarUsuario(@Validated @RequestBody Usuario usuario) {
-        if (usuarioService.existePorCorreo(usuario.getCorreo())) {
+        if (usuarioServiceImpl.existePorCorreo(usuario.getCorreo())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("El correo ya está en uso.");
         }
-        Usuario usuarioGuardado = usuarioService.guardarUsuario(usuario);
+        Usuario usuarioGuardado = usuarioServiceImpl.guardarUsuario(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioGuardado);
     }
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable("id") Integer id) {
-        usuarioService.eliminarUsuario(id);
+        usuarioServiceImpl.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam("correo") String correo,
             @RequestParam("contrasena") String contrasena) {
-        Usuario usuario = usuarioService.encontrarPorCorreoYContrasena(correo, contrasena);
+        Usuario usuario = usuarioServiceImpl.encontrarPorCorreoYContrasena(correo, contrasena);
         if (usuario != null) {
             return ResponseEntity.ok(usuario);
         } else {
@@ -69,7 +69,7 @@ public class UsuarioController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<?> modificarUsuario(@PathVariable("id") Integer id,
             @Validated @RequestBody Usuario usuarioNuevo) {
-        Usuario usuarioModificado = usuarioService.modificarUsuario(id, usuarioNuevo);
+        Usuario usuarioModificado = usuarioServiceImpl.modificarUsuario(id, usuarioNuevo);
         if (usuarioModificado != null) {
             return ResponseEntity.ok(usuarioModificado);
         } else {

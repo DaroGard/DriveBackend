@@ -1,37 +1,20 @@
 package unah.edu.hn.bases1.proyecto.services;
 
-import java.util.Date;
 import java.util.List;
 
 import unah.edu.hn.bases1.proyecto.Entities.Archivo;
-import unah.edu.hn.bases1.proyecto.dtos.Carpeta;
+import unah.edu.hn.bases1.proyecto.Entities.Usuario;
 
 public interface ArchivoService {
 
-    public List<Archivo> obtenerTodosLosArchivos(int idPropietario);
+    public Archivo guardarArchivo(Archivo archivo);
 
-    public List<Archivo> obtenerCarpetas(int idPropietario);
+    public Archivo obtenerArchivoPorId(Integer id);
 
-    public List<Archivo> obtenerArchivosPorTipo(int idPropietario, int tipo);
+    public List<Archivo> obtenerArchivosPorUsuario(Usuario usuario);
 
-    public List<Archivo> obtenerArchivosPorPersonaPropietario(int idPropietario, int idPersona);
+    public void borrarArchivo(Integer idArchivo);
 
-    public List<Archivo> obtenerArchivosporFecha(int idPropietario, Date Fecha);
-
-    public List<Archivo> obtenerArchivosporEstado(int idPropietario, int idEstado);
-
-    public List<Archivo> obtenerArchivosporNombre(int idPropietario, String Nombre);
-
-    public List<Archivo> obtenerCarpetasporPersona(int idPropietario);
-
-    public Archivo obtenerArchivo(int idArchivo);
-
-    public Archivo crearArchivo(Archivo archivo);
-
-    public Archivo crearCarpeta(Carpeta carpeta);
-
-    List<Archivo> obtenerArchivosPorNombre(String nombre);
-
-    public List<Archivo> obtenertodos();
+    public Archivo actualizarArchivo(Archivo archivo);
 
 }

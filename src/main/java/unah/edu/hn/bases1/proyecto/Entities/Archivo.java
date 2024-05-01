@@ -2,6 +2,8 @@ package unah.edu.hn.bases1.proyecto.Entities;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,14 +28,17 @@ public class Archivo {
     @Column(name = "id_archivo")
     private Integer idArchivo;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_tipo_archivo", nullable = false)
     private TipoArchivo tipoArchivo;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_estado", nullable = false)
     private EstadoArchivo estadoArchivo;
@@ -56,10 +61,5 @@ public class Archivo {
 
     @Column(name = "descripcion", length = 200)
     private String descripcion;
-
-    public void setFechaAbierto(Date fechaCreacion2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setFechaAbierto'");
-    }
 
 }

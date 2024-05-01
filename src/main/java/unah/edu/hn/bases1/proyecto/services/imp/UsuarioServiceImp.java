@@ -16,7 +16,7 @@ import unah.edu.hn.bases1.proyecto.repository.UsuarioRepository;
 import unah.edu.hn.bases1.proyecto.services.UsuarioService;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImp implements UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
