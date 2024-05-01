@@ -17,4 +17,6 @@ public interface ArchivoService {
 
     public Archivo actualizarArchivo(Archivo archivo);
 
+    public List<Archivo> obtenerArchivosPorTipo(Integer idTipoArchivo);
+
 }

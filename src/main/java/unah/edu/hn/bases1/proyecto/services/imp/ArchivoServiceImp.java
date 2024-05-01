@@ -110,7 +110,7 @@ public class ArchivoServiceImp implements ArchivoService {
         if (archivoExistente != null) {
             archivoExistente.setNombre(archivo.getNombre());
             archivoExistente.setDescripcion(archivo.getDescripcion());
-            
+
             archivoExistente.setFechaUtilizacion(new Date());
 
             return archivoRepository.save(archivoExistente);
@@ -118,6 +118,11 @@ public class ArchivoServiceImp implements ArchivoService {
         } else {
             throw new IllegalArgumentException("El archivo con ID " + archivo.getIdArchivo() + " no existe");
         }
+    }
+
+    @Override
+    public List<Archivo> obtenerArchivosPorTipo(Integer idTipoArchivo) {
+        return archivoRepository.findArchivosByTipoArchivoId(idTipoArchivo);
     }
 
 }

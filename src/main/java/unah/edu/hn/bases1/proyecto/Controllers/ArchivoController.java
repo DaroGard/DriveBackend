@@ -67,4 +67,10 @@ public class ArchivoController {
         return archivoServiceImp.actualizarArchivo(archivo);
     }
 
+    @GetMapping("/porTipo/{idTipoArchivo}")
+    public ResponseEntity<List<Archivo>> obtenerArchivosPorTipo(@PathVariable Integer idTipoArchivo) {
+        List<Archivo> archivos = archivoServiceImp.obtenerArchivosPorTipo(idTipoArchivo);
+        return ResponseEntity.ok(archivos);
+    }
+
 }

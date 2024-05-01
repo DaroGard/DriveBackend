@@ -28,12 +28,10 @@ public class Archivo {
     @Column(name = "id_archivo")
     private Integer idArchivo;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_tipo_archivo", nullable = false)
     private TipoArchivo tipoArchivo;
