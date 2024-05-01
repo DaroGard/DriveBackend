@@ -27,8 +27,8 @@ public class FacturacionPlan {
     private Integer idFacturacion;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "id_tarjeta", nullable = false)
+    private Tarjeta tarjeta;
 
     @ManyToOne
     @JoinColumn(name = "id_plan", nullable = false)

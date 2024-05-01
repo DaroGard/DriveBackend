@@ -52,11 +52,25 @@ CREATE TABLE tbl_grupos (
     fecha_creacion DATE NOT NULL
 );
 
-CREATE TABLE tbl_etiquetas ( --FALTA AGREGAR AL MODELO RELACIONAL
+CREATE TABLE tbl_etiquetas (
     id_etiqueta     INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     nombre_etiqueta VARCHAR2(50) NOT NULL,
     color           VARCHAR2(20),
     CONSTRAINT tbl_etiquetas_un UNIQUE (nombre_etiqueta)
+);
+
+CREATE TABLE tbl_configuracion_aplicacion (
+    id_configuracion    INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    nombre              VARCHAR2(50) NOT NULL,
+    valor               VARCHAR2(100) NOT NULL
+);
+
+CREATE TABLE tbl_eventos_sincronizacion (
+    id_evento           INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    tipo_evento         VARCHAR2(50) NOT NULL,
+    fecha               TIMESTAMP NOT NULL,
+    resultado           VARCHAR2(100),
+    CONSTRAINT ck_tipo_evento CHECK (tipo_evento IN ('INICIO', 'FIN', 'ERROR'))
 );
 
 CREATE TABLE tbl_planes (
@@ -103,13 +117,13 @@ CREATE TABLE tbl_usuarios (
 
 CREATE TABLE tbl_facturacion_planes (
     id_facturacion    INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    id_usuario        INTEGER NOT NULL,
+    id_tarjeta        INTEGER NOT NULL,
     id_plan           INTEGER NOT NULL,
     fecha             DATE,
     CONSTRAINT tbl_facturacion_planes_planes_fk FOREIGN KEY (id_plan)
         REFERENCES tbl_planes (id_plan),
-    CONSTRAINT tbl_facturacion_planes_usuarios_fk FOREIGN KEY (id_usuario)
-        REFERENCES tbl_usuarios (id_usuario)
+    CONSTRAINT tbl_facturacion_planes_tarjetas_fk FOREIGN KEY (id_tarjeta)
+        REFERENCES tbl_tarjetas (id_tarjeta)
 );
 
 CREATE TABLE tbl_tarjetas (
@@ -206,8 +220,6 @@ CREATE TABLE tbl_usuarios_grupo (
         REFERENCES tbl_grupos (id_grupo)
 );
 
---FALTAN AGREGAR AL MODELO RELACIONAL:
-
 CREATE TABLE tbl_actividades_usuario (
     id_actividad    INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     id_usuario      INTEGER NOT NULL,
@@ -295,18 +307,4 @@ CREATE TABLE tbl_actividades_usuario (
         REFERENCES tbl_archivos (id_archivo),
     CONSTRAINT fk_carpeta_actividad FOREIGN KEY (id_carpeta)
         REFERENCES tbl_carpetas (id_carpeta)
-);
-
-CREATE TABLE tbl_configuracion_aplicacion (
-    id_configuracion    INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    nombre              VARCHAR2(50) NOT NULL,
-    valor               VARCHAR2(100) NOT NULL
-);
-
-CREATE TABLE tbl_eventos_sincronizacion (
-    id_evento           INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    tipo_evento         VARCHAR2(50) NOT NULL,
-    fecha               TIMESTAMP NOT NULL,
-    resultado           VARCHAR2(100),
-    CONSTRAINT ck_tipo_evento CHECK (tipo_evento IN ('INICIO', 'FIN', 'ERROR'))
 );
