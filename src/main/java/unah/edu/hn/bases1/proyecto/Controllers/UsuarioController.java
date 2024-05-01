@@ -42,10 +42,15 @@ public class UsuarioController {
 
     @PostMapping("/crear")
     public ResponseEntity<?> guardarUsuario(@Validated @RequestBody Usuario usuario) {
+        System.out.println("Recibida solicitud para guardar usuario: " + usuario);
+
         if (usuarioServiceImpl.existePorCorreo(usuario.getCorreo())) {
+            System.out.println("El correo " + usuario.getCorreo() + " ya está en uso.");
             return ResponseEntity.status(HttpStatus.CONFLICT).body("El correo ya está en uso.");
         }
+
         Usuario usuarioGuardado = usuarioServiceImpl.guardarUsuario(usuario);
+        System.out.println("Usuario guardado correctamente: " + usuarioGuardado);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioGuardado);
     }
 
