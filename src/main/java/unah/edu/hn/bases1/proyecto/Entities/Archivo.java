@@ -3,6 +3,7 @@ package unah.edu.hn.bases1.proyecto.Entities;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,6 +42,7 @@ public class Archivo {
     @JoinColumn(name = "id_estado", nullable = false)
     private EstadoArchivo estadoArchivo;
 
+    @JsonIgnoreProperties("archivos")
     @ManyToOne
     @JoinColumn(name = "id_carpeta")
     private Carpeta carpeta;

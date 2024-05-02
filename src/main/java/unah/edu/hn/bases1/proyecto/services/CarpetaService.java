@@ -9,7 +9,7 @@ public interface CarpetaService {
 
     public Carpeta guardarCarpeta(Carpeta carpeta);
 
-    public Carpeta actualizarCarpeta(Carpeta carpeta);
+    public Carpeta actualizarCarpeta(Carpeta carpeta, Integer idCarpeta);
 
     public void eliminarCarpeta(Integer idCarpeta);
 

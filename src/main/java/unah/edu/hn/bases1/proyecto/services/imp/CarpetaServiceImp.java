@@ -38,18 +38,28 @@ public class CarpetaServiceImp implements CarpetaService {
     }
 
     @Override
-    public Carpeta actualizarCarpeta(Carpeta carpeta) {
+    public Carpeta actualizarCarpeta(Carpeta carpeta, Integer idCarpeta) {
+        // Buscar la carpeta existente por su ID
+        Carpeta carpetaExistente = carpetaRepository.findById(idCarpeta).orElse(null);
 
-        Carpeta carpetaExistente = carpetaRepository.findByNombreCarpeta(carpeta.getNombreCarpeta());
-        if (carpetaExistente != null && !carpetaExistente.getIdCarpeta().equals(carpeta.getIdCarpeta())) {
+        // Verificar si la carpeta existe
+        if (carpetaExistente == null) {
+            throw new DataIntegrityViolationException("La carpeta a actualizar no existe");
+        }
+
+        // Verificar si hay otra carpeta con el mismo nombre
+        Carpeta carpetaConMismoNombre = carpetaRepository.findByNombreCarpetaAndIdCarpetaNot(carpeta.getNombreCarpeta(),
+                idCarpeta);
+        if (carpetaConMismoNombre != null) {
             throw new DataIntegrityViolationException("Ya existe una carpeta con el mismo nombre");
         }
 
-        if (carpeta.getCarpetaPadre() != null
-                && carpeta.getCarpetaPadre().getIdCarpeta().equals(carpeta.getIdCarpeta())) {
+        // Verificar si la carpeta no puede ser su propio padre
+        if (carpeta.getCarpetaPadre() != null && carpeta.getCarpetaPadre().getIdCarpeta().equals(idCarpeta)) {
             throw new DataIntegrityViolationException("Una carpeta no puede ser su propio padre");
         }
 
+        // Verificar si la carpeta padre existe
         if (carpeta.getCarpetaPadre() != null) {
             Carpeta carpetaPadreExistente = carpetaRepository.findById(carpeta.getCarpetaPadre().getIdCarpeta())
                     .orElse(null);
@@ -58,21 +68,32 @@ public class CarpetaServiceImp implements CarpetaService {
             }
         }
 
+        // Verificar y actualizar los archivos vinculados
         if (carpeta.getArchivos() != null && !carpeta.getArchivos().isEmpty()) {
             for (Archivo archivo : carpeta.getArchivos()) {
                 Archivo archivoExistente = archivoRepository.findById(archivo.getIdArchivo()).orElse(null);
                 if (archivoExistente == null) {
                     throw new DataIntegrityViolationException("El archivo a vincular no existe");
                 }
-                if (archivoExistente.getCarpeta() != null && !archivoExistente.getCarpeta().equals(carpeta)) {
-                    throw new DataIntegrityViolationException("El archivo ya está vinculado a otra carpeta");
-                }
-
-                archivoExistente.setCarpeta(carpeta);
+                // Asignar la carpeta al archivo existente
+                archivoExistente.setCarpeta(carpetaExistente);
             }
+            carpetaExistente.setArchivos(carpeta.getArchivos());
+        } else {
+            // Si la lista de archivos está vacía, eliminar la asociación de archivos de la
+            // carpeta existente
+            carpetaExistente.setArchivos(null);
         }
 
-        return carpetaRepository.save(carpeta);
+        // Actualizar la carpeta y guardarla
+        if (carpeta.getNombreCarpeta() != null) {
+            carpetaExistente.setNombreCarpeta(carpeta.getNombreCarpeta());
+        }
+        if (carpeta.getCarpetaPadre() != null) {
+            carpetaExistente.setCarpetaPadre(carpeta.getCarpetaPadre());
+        }
+
+        return carpetaRepository.save(carpetaExistente);
     }
 
     @Override

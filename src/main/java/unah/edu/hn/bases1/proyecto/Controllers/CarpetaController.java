@@ -28,9 +28,9 @@ public class CarpetaController {
         return carpetaServiceImp.guardarCarpeta(carpeta);
     }
 
-    @PutMapping("/actualizar")
-    public Carpeta actualizarCarpeta(@RequestBody Carpeta carpeta) {
-        return carpetaServiceImp.actualizarCarpeta(carpeta);
+    @PutMapping("/actualizar/{id}")
+    public Carpeta actualizarCarpeta(@PathVariable Integer id, @RequestBody Carpeta carpeta) {
+        return carpetaServiceImp.actualizarCarpeta(carpeta, id);
     }
 
     @DeleteMapping("/eliminar/{idCarpeta}")

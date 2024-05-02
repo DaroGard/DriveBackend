@@ -2,6 +2,8 @@ package unah.edu.hn.bases1.proyecto.Entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +40,7 @@ public class Carpeta {
     @Column(name = "nombre_carpeta")
     private String nombreCarpeta;
 
+    @JsonIgnoreProperties("carpeta")
     @OneToMany(mappedBy = "carpeta")
     private List<Archivo> archivos;
 
