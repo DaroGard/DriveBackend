@@ -136,3 +136,6 @@ INSERT INTO tbl_configuracion_aplicacion (nombre, valor) VALUES ('PermitirAcceso
 INSERT INTO tbl_configuracion_aplicacion (nombre, valor) VALUES ('NotificacionesCorreoElectronico', 'true');
 INSERT INTO tbl_configuracion_aplicacion (nombre, valor) VALUES ('FormatoHora', 'HH:mm:ss');
 INSERT INTO tbl_configuracion_aplicacion (nombre, valor) VALUES ('ConfiguracionRegional', 'es_ES');
+
+
+COMMIT;

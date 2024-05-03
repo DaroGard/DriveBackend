@@ -11,8 +11,10 @@ import unah.edu.hn.bases1.proyecto.Entities.Usuario;
 
 public interface ArchivoRepository extends CrudRepository<Archivo, Integer> {
 
+    @Query("SELECT a FROM Archivo a WHERE a.usuario = ?1")
     List<Archivo> findByUsuario(Usuario usuario);
 
+    @Query("SELECT a FROM Archivo a WHERE a.nombre = ?1")
     Archivo findByNombre(String nombre);
 
     @Query("SELECT a FROM Archivo a WHERE a.tipoArchivo.idTipoArchivo = :idTipoArchivo")
