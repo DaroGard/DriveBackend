@@ -55,7 +55,7 @@ public class ArchivoController {
         return ResponseEntity.ok().body(archivos);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("eliminar/{id}")
     public ResponseEntity<String> borrarArchivo(@PathVariable("id") Integer idArchivo) {
         archivoServiceImp.borrarArchivo(idArchivo);
         return new ResponseEntity<>("Archivo borrado correctamente", HttpStatus.OK);

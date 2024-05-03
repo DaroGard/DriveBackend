@@ -13,6 +13,7 @@ import unah.edu.hn.bases1.proyecto.Entities.TipoArchivo;
 import unah.edu.hn.bases1.proyecto.Entities.Usuario;
 import unah.edu.hn.bases1.proyecto.repository.ArchivoRepository;
 import unah.edu.hn.bases1.proyecto.repository.EstadoArchivoRepository;
+import unah.edu.hn.bases1.proyecto.repository.FavoritoRepository;
 import unah.edu.hn.bases1.proyecto.repository.TipoArchivoRepository;
 import unah.edu.hn.bases1.proyecto.services.ArchivoService;
 
@@ -27,6 +28,9 @@ public class ArchivoServiceImp implements ArchivoService {
 
     @Autowired
     private EstadoArchivoRepository estadoArchivoRepository;
+
+    @Autowired
+    private FavoritoRepository favoritoRepository;
 
     @Override
     public Archivo guardarArchivo(Archivo archivo) {
@@ -82,6 +86,8 @@ public class ArchivoServiceImp implements ArchivoService {
         if (archivoOptional.isPresent()) {
             Archivo archivo = archivoOptional.get();
 
+            favoritoRepository.deleteByArchivo(archivo);
+
             Usuario usuario = archivo.getUsuario();
             if (usuario != null) {
                 usuario.getArchivos().remove(archivo);
@@ -108,13 +114,37 @@ public class ArchivoServiceImp implements ArchivoService {
         Archivo archivoExistente = archivoRepository.findById(archivo.getIdArchivo()).orElse(null);
 
         if (archivoExistente != null) {
-            archivoExistente.setNombre(archivo.getNombre());
-            archivoExistente.setDescripcion(archivo.getDescripcion());
+            if (archivo.getNombre() != null) {
+                archivoExistente.setNombre(archivo.getNombre());
+            }
+
+            if (archivo.getDescripcion() != null) {
+                archivoExistente.setDescripcion(archivo.getDescripcion());
+            }
 
             archivoExistente.setFechaUtilizacion(new Date());
 
-            return archivoRepository.save(archivoExistente);
+            if (archivo.getUsuario() != null) {
+                archivoExistente.setUsuario(archivo.getUsuario());
+            }
 
+            if (archivo.getTipoArchivo() != null) {
+                archivoExistente.setTipoArchivo(archivo.getTipoArchivo());
+            }
+
+            if (archivo.getEstadoArchivo() != null) {
+                archivoExistente.setEstadoArchivo(archivo.getEstadoArchivo());
+            }
+
+            if (archivo.getCarpeta() != null) {
+                archivoExistente.setCarpeta(archivo.getCarpeta());
+            }
+
+            if (archivo.getTamano() != null) {
+                archivoExistente.setTamano(archivo.getTamano());
+            }
+
+            return archivoRepository.save(archivoExistente);
         } else {
             throw new IllegalArgumentException("El archivo con ID " + archivo.getIdArchivo() + " no existe");
         }

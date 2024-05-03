@@ -1,8 +1,8 @@
 package unah.edu.hn.bases1.proyecto.Entities;
 
 import java.util.Date;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +38,7 @@ public class Archivo {
     @JoinColumn(name = "id_tipo_archivo", nullable = false)
     private TipoArchivo tipoArchivo;
 
-    @JsonIgnore
+    @JsonIgnoreProperties("archivos")
     @ManyToOne
     @JoinColumn(name = "id_estado", nullable = false)
     private EstadoArchivo estadoArchivo;
@@ -61,5 +62,9 @@ public class Archivo {
 
     @Column(name = "descripcion", length = 200)
     private String descripcion;
+
+    @JsonIgnoreProperties("archivo")
+    @OneToMany(mappedBy = "archivo")
+    private List<Favorito> favorito;
 
 }

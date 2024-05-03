@@ -2,6 +2,8 @@ package unah.edu.hn.bases1.proyecto.Entities;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,10 +28,12 @@ public class Favorito {
     @Column(name = "id_favorito")
     private Integer idFavorito;
 
+    @JsonIgnoreProperties("favorito")
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
+    @JsonIgnoreProperties("favorito")
     @ManyToOne
     @JoinColumn(name = "id_archivo", nullable = false)
     private Archivo archivo;

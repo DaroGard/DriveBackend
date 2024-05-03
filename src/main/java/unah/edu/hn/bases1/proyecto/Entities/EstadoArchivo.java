@@ -2,7 +2,7 @@ package unah.edu.hn.bases1.proyecto.Entities;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,7 +30,7 @@ public class EstadoArchivo {
     @Column(name = "tipo_estado", nullable = false)
     private String tipoEstado;
 
-    @JsonIgnore
+    @JsonIgnoreProperties("estadoArchivo")
     @OneToMany(mappedBy = "estadoArchivo")
     private List<Archivo> archivos;
 
